@@ -4,36 +4,80 @@
     Author     : jackb
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" import = "java.util.Date, java.text.SimpleDateFormat, bean.Student, bean.UserManager"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<%
-    
-String email = request.getParameter("email");
-String firstName = request.getParameter("firstName");
-String lastName = request.getParameter("lastName");
-String password = request.getParameter("password");
-String sDob = request.getParameter("dob");
-Date dob = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(sDob);  
-String phoneNumber = request.getParameter("phoneNumber");
-
-Student student = new Student(email, password, firstName, lastName, dob, phoneNumber);
-
-UserManager userManager = new UserManager();
-int studentId = userManager.registerStudent(student); 
-
-if(studentId>0){
-out.print("Completed.");
-}
-
-%>
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Register | GCU_Skills</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="../../../../../OneDrive/Desktop/ProjectPublic-sean-s-branch/ProjectPublic-sean-s-branch/web/css/style.css">
+        <link rel="icon" type="image/png" href="../../../../../OneDrive/Desktop/ProjectPublic-sean-s-branch/ProjectPublic-sean-s-branch/web/images/favicon32.png" sizes="32x32"/>
+        <link rel="icon" type="image/png" href="../../../../../OneDrive/Desktop/ProjectPublic-sean-s-branch/ProjectPublic-sean-s-branch/web/images/favicon16.png" sizes="16x16">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function addHyphon(){
+                var dob = document.getElementById("dob");
+                var doblength = document.getElementById("dob").length;
+                    if(dob.value.length === 2 || dob.value.length === 5) {
+                    dob.value += "-";
+                }
+            }
+        </script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%@ include file="navbar.jsp" %> 
+        <div id="section-container">
+           <section class="image-section" id="register">
+                <div class="form-box-content">
+                    <h2>Register a new Student Account</h2>
+                        <form action="<%= request.getContextPath() %>/register" method="POST">    
+                        <label>     
+                            <input type="text" class="input" name="fname" placeholder="First name" autocomplete="off"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label> 
+                        <label>     
+                            <input type="text" class="input" name="surname" placeholder="Surname"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label>
+                        <label>     
+                            <input type="text" class="input" name="dob" onkeyup="addHyphon();" id="dob" placeholder="Date of birth (DDMMYYYY)" 
+                            pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}" required  title="Enter a date in this format DD-MM-YYYY"/>               
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label>  
+                        <label>
+                           <input type="text" class="input" name="contactno" placeholder="Phone number"/>                   
+                            <div class="line-box">          
+                            <div class="line"></div>        
+                            </div>    
+                        </label>                         
+                        <label>     
+                          <input type="text" class="input" name="email" placeholder="Email"/>                   
+                          <div class="line-box">          
+                          <div class="line"></div>        
+                          </div>    
+                        </label>         
+                        <label>     
+                            <input type="password" class="input" name="password" placeholder="Password"/>        
+                                <div class="line-box">          
+                                <div class="line"></div>        
+                            </div>    
+                        </label>          
+                        <button type="submit">Register</button>
+                        <label>
+                            <small>Already have an account? <a href="login.jsp">Log in</a></small>
+                        </label>
+                    </form> 
+                </div>
+            </section>
+        </div>
     </body>
 </html>
+
+

@@ -30,14 +30,15 @@ public class CourseManager {
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(connectionString);
             Statement stmt = conn.createStatement();
-            //Selects all entries in the orders table of the database
+
+            //Selects all entries in the courses table of the database
             ResultSet rs = stmt.executeQuery("SELECT * FROM Courses");
             
             //Executes while the results set has a next value
             while(rs.next())
             {
                 
-                //Loads all values for an entry into an order object
+                //Loads all values for an entry into an course object
                 int courseId = rs.getInt("CourseId");
                 String courseName = rs.getString("CourseName");
                 String courseStatus = rs.getString("CourseStatus");
@@ -45,11 +46,11 @@ public class CourseManager {
                 
                 Course loadedCourse = new Course(courseId, courseName, courseStatus);
 
-                //Executes if the customers hash map contains an entry with a matching username
+                //Executes if the students hash map contains an entry with a matching courseId
                 if(students.containsKey(courseId))
                 {
                     
-                    //Adds the order to the  orders for that customer in the orders hash map
+                    //Adds the course to the student object in the studentsHashMap
                     Student studentWithCourse = students.get(courseId);
                     studentWithCourse.setCourse(loadedCourse);
                     
@@ -88,13 +89,13 @@ public class CourseManager {
             Connection conn = DriverManager.getConnection(connectionString);
             Statement stmt = conn.createStatement();
             
-            //Selects all entries in the OrderLines table in the database
+            //Selects all entries in the lessons table in the database
             ResultSet rs = stmt.executeQuery("SELECT * FROM Lessons");
             
             while(rs.next())
             {
                 
-                //Loads all values for an entry into an order line object
+                //Loads all values for an entry into an lesson object
                 int lessonId = rs.getInt("LessonId");
                 Date timeSlot = rs.getDate("TimeSlot");
                 int courseId = rs.getInt("CourseId");
@@ -131,14 +132,15 @@ public class CourseManager {
             Class.forName(driver);
             Connection conn = DriverManager.getConnection(connectionString);
             Statement stmt = conn.createStatement();
-            //Selects all entries in the orders table of the database
+
+            //Selects all entries in the lessons table of the database
             ResultSet rs = stmt.executeQuery("SELECT * FROM Lessons");
             
             //Executes while the results set has a next value
             while(rs.next())
             {
                 
-                //Loads all values for an entry into an order object
+                //Loads all values for an entry into an lesson object
                 int lessonId = rs.getInt("LessonId");
                 Date timeSlot = rs.getDate("TimeSlot");
                 int courseId = rs.getInt("CourseId");
@@ -175,7 +177,8 @@ public class CourseManager {
         
         finally
         {
-            
+
+            //returns the students hash map with all students courses populated with their lessons
             return students;
             
         }
