@@ -1,52 +1,57 @@
 # GCU Skills
 
-A Java-based web application for a learning management system.
+A Java web application for managing courses and lessons, built with server-rendered JSP and a relational database backend.
 
 ## Features
 
-*   User registration and login
-*   View and manage courses
-*   View lessons
+- User registration and login, with passwords hashed using jBCrypt
+- Course creation and management
+- Lesson viewing per course
 
-## Technologies Used
+## Tech Stack
 
-*   Java
-*   JSP (JavaServer Pages)
-*   Maven
-*   UCanAccess (for connecting to MS Access database)
-*   jBCrypt (for password hashing)
+| Layer | Technology |
+|---|---|
+| Language | Java |
+| Web layer | JSP (JavaServer Pages) |
+| Build | Maven |
+| Database | MS Access, via UCanAccess (JDBC) |
+| Security | jBCrypt password hashing |
+| Deployment | Apache Tomcat (WAR) |
 
-## Setup and Installation
+## Getting Started
 
 ### Prerequisites
 
-*   Java Development Kit (JDK) 8 or higher
-*   Apache Maven
-*   A servlet container like Apache Tomcat
+- JDK 8 or higher
+- Apache Maven
+- A servlet container such as Apache Tomcat
 
-### Database Configuration
+### Database configuration
 
-The database connection string is currently hardcoded in the following files:
+The connection string is set in:
 
-*   `src/main/java/bean/UserManager.java`
-*   `src/main/java/bean/CourseManager.java`
+- `src/main/java/bean/UserManager.java`
+- `src/main/java/bean/CourseManager.java`
 
-You will need to change the `connectionString` variable in these files to point to the location of your `GCU_SkillsDB.accdb` file.
-
-**Example:**
+Update the `connectionString` variable in both files to point to your local `GCU_SkillsDB.accdb`:
 
 ```java
 private final String connectionString = "jdbc:ucanaccess://<path_to_your_database>/GCU_SkillsDB.accdb";
 ```
 
-### Build and Run
+### Build and run
 
-1.  **Build the project:**
-    ```bash
-    mvn clean install
-    ```
-2.  **Deploy the WAR file:**
-    *   The build process will generate a `GCU_Skills.war` file in the `target` directory.
-    *   Deploy this WAR file to your servlet container (e.g., copy it to the `webapps` directory of Tomcat).
-3.  **Access the application:**
-    *   Once deployed, you can access the application at `http://localhost:<port>/GCU_Skills/` (replace `<port>` with the port number of your servlet container).
+```bash
+mvn clean install
+```
+
+This produces `GCU_Skills.war` in `target/`. Deploy it to your servlet container (e.g. copy it into Tomcat's `webapps/` directory), then visit:
+
+```
+http://localhost:<port>/GCU_Skills/
+```
+
+## About
+
+Built as an integrated project during my BSc (Hons) Computing at Glasgow Caledonian University.
